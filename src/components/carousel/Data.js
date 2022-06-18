@@ -1,17 +1,17 @@
 export const dummyData =
         [{
-                title: 'Anise Aroma Art Bazar', url: 'https://i.ibb.co/hYjK44F/anise-aroma-art-bazaar-277253.jpg',
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                title: "Turvallista kaupankäyntiä verkossa", url: 'https://i.postimg.cc/jSW07CG8/safe.png',
+                description: "Asianamme on tehdä käytetyn tavaran myynnistä ja ostosta turvallista.",
                 id: 1
 
         },
         {
-                title: 'Food inside a Bowl', url: 'https://i.ibb.co/JtS24qP/food-inside-bowl-1854037.jpg',
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                title: 'Jokainen käyttäjä on tunnistautunut', url: 'https://i.postimg.cc/9Qv3tC2c/tunnistautuminen.png',
+                description: "Vahva tunnistautuminen vaaditaan kaikilta käyttäjiltä",
                 id: 2
         },
         {
-                title: 'Vegatable Salad', url: 'https://i.ibb.co/JxykVBt/flat-lay-photography-of-vegetable-salad-on-plate-1640777.jpg',
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                title: 'Ei enää petoksia verkossa', url: 'https://i.postimg.cc/bNVfr1FD/money.png',
+                description: "Raha siirtyy myyjälle vasta kun kauppa on vahvistettu",
                 id: 3
         }]

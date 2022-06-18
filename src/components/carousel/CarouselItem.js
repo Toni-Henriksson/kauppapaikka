@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     cardView: {
         flex: 1,
         width: width - 20,
-        height: height / 3,
-        backgroundColor: 'white',
+        height: height / 2,
+        backgroundColor: '#F0F0F0',
         margin: 10,
         borderRadius: 10,
         shadowColor: '#000',
@@ -34,33 +34,30 @@ const styles = StyleSheet.create({
     textView: {
         position: 'absolute',
         bottom: 10,
+        width: '95%',
+        height: '20%',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        elevation: 2,
+        padding: 5,
         margin: 10,
-        left: 5,
     },
     image: {
         width: width - 20,
-        height: height / 3,
+        height: height / 2,
         borderRadius: 10
     },
     itemTitle: {
-        color: 'white',
+        color: 'black',
         fontSize: 22,
-        shadowColor: '#000',
-        shadowOffset: { width: 0.8, height: 0.8 },
-        shadowOpacity: 1,
-        shadowRadius: 3,
         marginBottom: 5,
         fontWeight: "bold",
-        elevation: 5
+        alignSelf: 'center',
     },
     itemDescription: {
-        color: 'white',
-        fontSize: 12,
-        shadowColor: '#000',
-        shadowOffset: { width: 0.8, height: 0.8 },
-        shadowOpacity: 1,
-        shadowRadius: 3,
-        elevation: 5
+        color: 'black',
+        fontSize: 14,
+        alignSelf: 'center',
     }
 })
 
