@@ -1,6 +1,8 @@
 import React from "react"
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import globalstyles from '../../global/Style'
+import Carousel from "../../components/carousel/Carousel"
+import { dummyData } from "../../components/carousel/Data"
 
 const LoginScreen = () => {
     return(
@@ -10,7 +12,7 @@ const LoginScreen = () => {
                 <Text style={globalstyles.p}>Osta ja myy käytettyä tavaraa turvallisesti</Text>
             </View>
             <View style={styles.carousell}>
-
+                <Carousel data = {dummyData}/>
             </View>
             <View style= {styles.controls}>
                 <TouchableOpacity style={styles.registerbtn}>
