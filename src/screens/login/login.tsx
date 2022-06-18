@@ -1,8 +1,9 @@
 import React from "react"
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native"
 import globalstyles from '../../global/Style'
 import Carousel from "../../components/carousel/Carousel"
 import { dummyData } from "../../components/carousel/Data"
+const { width, height } = Dimensions.get('window')
 
 const LoginScreen = () => {
     return(
@@ -19,7 +20,7 @@ const LoginScreen = () => {
                     <Text style={styles.btntext}>Luo käyttäjätili</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.loginbtn}>
-                    <Text style={styles.btntext}>Kirjaudu sisään</Text>
+                    <Text style={{color: 'black', fontWeight: 'bold', textAlign: 'center', padding: 6, fontSize: 15}}>Kirjaudu sisään</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -37,7 +38,8 @@ const styles = StyleSheet.create({
     marginTop: 60
    },
    carousell: {
-    height: '70%'
+    height: '70%',
+    paddingTop: height / 10
    },
    controls: {
     height: '10%'

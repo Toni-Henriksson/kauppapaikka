@@ -11,7 +11,7 @@ export const dummyData =
                 id: 2
         },
         {
-                title: 'Ei enää petoksia verkossa', url: 'https://i.postimg.cc/bNVfr1FD/money.png',
+                title: 'Ei enää petoksia verkossa', url: 'https://i.postimg.cc/ZqQrqbGz/fraud-1.png',
                 description: "Raha siirtyy myyjälle vasta kun kauppa on vahvistettu",
                 id: 3
         }]
