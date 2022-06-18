@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "493781472871",
+    "project_id": "kauppapaikka-35ca2",
+    "storage_bucket": "kauppapaikka-35ca2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493781472871:android:905354c9bb53151f96a6c2",
+        "android_client_info": {
+          "package_name": "com.kauppapaikka.kauppapaikka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493781472871-std04utpt7t4mic0kloo2bv4p0aj1r56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOwCaHUd9zMLJU8bAM1FmoAFva45gwA4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493781472871-std04utpt7t4mic0kloo2bv4p0aj1r56.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

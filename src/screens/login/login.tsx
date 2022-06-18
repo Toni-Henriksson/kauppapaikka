@@ -1,11 +1,19 @@
-import React from "react"
+import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native"
 import globalstyles from '../../global/Style'
 import Carousel from "../../components/carousel/Carousel"
 import { dummyData } from "../../components/carousel/Data"
 const { width, height } = Dimensions.get('window')
+import { login } from '../../backend/firebase-utility';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}: {navigation: any}) => {
+    //const [loginEmail, setLoginEmail] = useState("");
+    //const [loginPassword, SetLoginPassword] = useState("");
+    function handleLogin(){
+        //login(loginEmail, loginPassword);
+        navigation.navigate('Home')
+    } 
+
     return(
         <View style={styles.container}>
             <View style={styles.header}>
@@ -19,13 +27,14 @@ const LoginScreen = () => {
                 <TouchableOpacity style={styles.registerbtn}>
                     <Text style={styles.btntext}>Luo käyttäjätili</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.loginbtn}>
+                <TouchableOpacity style={styles.loginbtn} onPress={()=> {handleLogin()}}>
                     <Text style={{color: 'black', fontWeight: 'bold', textAlign: 'center', padding: 6, fontSize: 15}}>Kirjaudu sisään</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
+
 const styles = StyleSheet.create({
    container: {
     backgroundColor: '#F0F0F0',
