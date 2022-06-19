@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     wrapper: {
-        padding: 50
+        padding: 10
     },
 })
 

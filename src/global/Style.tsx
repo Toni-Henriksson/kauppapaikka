@@ -5,6 +5,7 @@ export default StyleSheet.create({
     fontSize: 30,
     color: '#f99f38',
     fontWeight: '800',
+    alignSelf: 'center'
   },
   p:{
     fontSize: 18,
@@ -14,5 +15,6 @@ export default StyleSheet.create({
     borderRadius: 5,
     height: 50,
     margin: 10,
+    padding: 10,
   }
 });
