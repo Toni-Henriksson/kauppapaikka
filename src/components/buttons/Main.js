@@ -9,6 +9,7 @@ export const MainButton = ({text}) => {
 
 const styles = StyleSheet.create({
     btn: {
+     alignSelf: 'center',
      backgroundColor: '#f99f38',
      width: 350,
      height: 38,
