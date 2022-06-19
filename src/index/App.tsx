@@ -5,6 +5,7 @@ import UnsignedLoginScreen from '../screens/unsignedLogin/UnsignedLogin';
 import HomeScreen from '../screens/home/home';
 import LoginScreen from '../screens/login/Login'
 import RegisterScreen from '../screens/register/Register';
+import SelectedRegister from '../screens/register/SelectedRegister';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="UnsignedLogin" component={UnsignedLoginScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="SelectedRegister" component={SelectedRegister} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
