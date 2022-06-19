@@ -4,19 +4,18 @@ import globalstyles from '../../global/Style'
 const { width, height } = Dimensions.get('window')
 
 const SelectedRegister = ({navigation}: {navigation: any}) => {
-    function handleLogin(page : string){
-        navigation.navigate(page)
-    } 
-
+    function handleClick() {
+        navigation.navigate('Home')
+    }
     return(
         <View style={styles.container}>
             <View  style={styles.wrapper}>
-                <Text>Luo Kauppapaikka-käyttäjätili</Text>
-                <TextInput placeholder="Etunimi"></TextInput>
-                <TextInput placeholder="Sukunimi"></TextInput>
-                <TextInput placeholder="Sähköposti"></TextInput>
-                <TextInput placeholder="Salasana"></TextInput>
-                <MainButton text={"Rekisteröidy"} onPress={()=>{ handleLogin('Home')}}></MainButton>
+                <Text style={globalstyles.title}>Kauppapaikka-käyttäjätili</Text>
+                <TextInput style={globalstyles.input} placeholder="Etunimi"></TextInput>
+                <TextInput style={globalstyles.input} placeholder="Sukunimi"></TextInput>
+                <TextInput style={globalstyles.input} placeholder="Sähköposti"></TextInput>
+                <TextInput style={globalstyles.input} placeholder="Salasana"></TextInput>
+                <MainButton text={"Rekisteröidy"}></MainButton>
             </View>
         </View>
     )
@@ -27,9 +26,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center'
     },
     wrapper: {
-
+        padding: 50
     },
 })
 

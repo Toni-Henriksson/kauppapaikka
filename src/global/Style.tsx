@@ -8,5 +8,11 @@ export default StyleSheet.create({
   },
   p:{
     fontSize: 18,
+  },
+  input: {
+    borderWidth: 1,
+    borderRadius: 5,
+    height: 50,
+    margin: 10,
   }
 });

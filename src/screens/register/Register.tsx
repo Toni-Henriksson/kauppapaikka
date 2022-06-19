@@ -1,13 +1,14 @@
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native"
+import { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Alert } from "react-native"
 import { MainButton } from "../../components/buttons/Main";
 import globalstyles from '../../global/Style'
 const { width, height } = Dimensions.get('window')
 
 const Register = ({navigation}: {navigation: any}) => {
-    function handleLogin(page : string){
-        alert(page)
+    function handleClick(page : string) {
         navigation.navigate(page)
-    } 
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.top}>
@@ -15,8 +16,15 @@ const Register = ({navigation}: {navigation: any}) => {
             </View>
             <View style={styles.bottom}>
                 <Text style={{fontWeight: 'bold', alignSelf: 'center', fontSize: 25, marginBottom: 20}}>Luo kauppapaikka-käyttäjätili</Text>
-                <MainButton text={"Luo gmaililla"} onPress={()=>{}}></MainButton>
-                <MainButton text={"Luo sähköpostilla"} onPress={()=>{handleLogin('SelectedRegister')}}></MainButton>
+
+                <TouchableOpacity style={styles.btn} onPress={()=>handleClick('Home')}>
+                    <Text style={styles.btntext}>Luo Gmaililla</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.btn}  onPress={()=>handleClick('SelectedRegister')}>
+                    <Text style={styles.btntext}>Luo Sähköpostilla</Text>
+                </TouchableOpacity>
+
                 <Text style={{alignSelf: 'center', marginTop: 10, fontSize: 10}}>Rekisteröitymällä hyväksyt Palveluehdot ja Yksityisyydensuojan.</Text>
             </View>
         </View>
@@ -37,6 +45,22 @@ const styles = StyleSheet.create({
     bottom: {
         height: height * 0.3,
     },
+    btn: {
+        alignSelf: 'center',
+        backgroundColor: '#f99f38',
+        width: 350,
+        height: 38,
+        borderRadius: 25,
+        margin: 5,
+        elevation: 2,
+       },
+       btntext: {
+        textAlign: 'center',
+        padding: 6,
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 15
+       }
 })
 
 export default Register
