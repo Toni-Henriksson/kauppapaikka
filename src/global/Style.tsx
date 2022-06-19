@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   title: {
     fontSize: 30,
-    color: '#fc9003',
+    color: '#f99f38',
     fontWeight: '800',
   },
   p:{
