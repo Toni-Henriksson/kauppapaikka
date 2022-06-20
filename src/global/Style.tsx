@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-
 export default StyleSheet.create({
   title: {
     fontSize: 30,
@@ -16,5 +15,6 @@ export default StyleSheet.create({
     height: 50,
     margin: 10,
     padding: 10,
+    width: '80%'
   }
 });
