@@ -13,16 +13,14 @@ const HomeScreen = () => {
     onAuthStateChanged(auth, (currentUser : any) => {
         setUser(currentUser);
     })
+
     return(
         <View>
             <Text>HOME screen</Text>
             {
-                user?
-                <Text>Kirjautunut</Text>
-                : 
-                <Text>Ei kirjautunut</Text>
+                
             }
-            <TouchableOpacity onPress={()=>{setUser('')}}>
+            <TouchableOpacity onPress={()=>{logout}}>
                 <Text>Logout</Text>
             </TouchableOpacity>
         </View>
