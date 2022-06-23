@@ -10,7 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 
-/kauppapaikka/src/backend/firebase.js
+src\backend\firebase.js
 
 # macOS
 .DS_Store
