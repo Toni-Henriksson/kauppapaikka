@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Dimensions, StyleSheet, TouchableOpacity, Image } from "react-native";
 const { width, height } = Dimensions.get('window')
 
 const Navbar = () => {
@@ -34,19 +34,19 @@ const styles = StyleSheet.create({
       elevation: 2,
     },
     section: {
-        alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
-        width: width / 5,
+      alignItems: 'center',
+      alignContent: 'center',
+      justifyContent: 'center',
+      width: width / 5,
     },
     sectionMiddle: {
-        alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
-         width: width / 5,
-         borderRadius: 10,
-         backgroundColor: "lightgreen",
-         elevation: 1,
+      alignItems: 'center',
+      alignContent: 'center',
+      justifyContent: 'center',
+      width: width / 5,
+      borderRadius: 5,
+      backgroundColor: "lightgreen",
+      elevation: 2,
     },
 })
 

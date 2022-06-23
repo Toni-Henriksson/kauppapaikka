@@ -25,7 +25,7 @@ const SelectedRegister = ({navigation}: {navigation: any}) => {
                 <TextInput style={globalstyles.input} placeholder="Sähköposti" onChangeText={mail => setMail(mail)}></TextInput>
                 <TextInput style={globalstyles.input} placeholder="Salasana" onChangeText={pass => setPassword(pass)}></TextInput>
                 <TouchableOpacity style={styles.btn} onPress={()=>handleClick(mail, password)}>
-                    <Text style={styles.btntext}>Rekisteröidyz</Text>
+                    <Text style={styles.btntext}>Rekisteröidy</Text>
                 </TouchableOpacity>
             </View>
         </View>

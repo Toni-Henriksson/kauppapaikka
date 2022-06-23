@@ -29,6 +29,7 @@ export default function App() {
       setIsSignedIn(false)
     }
 });
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
