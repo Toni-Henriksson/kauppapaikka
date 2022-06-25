@@ -1,22 +1,36 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert } from "react-native";
 import ModalPopUp from "../../components/modal/Modal";
 import SelectDropdown from "react-native-select-dropdown";
 import Style from "../../global/Style";
 
 const AddItemPopUp = ({visible, setVisible}) => {
     const countries = ["Elektroniikka", "Rakentaminen", "Vaatetus", "Muut"];
-    const [category, setCategory] = useState('');
     const [error, setError] = useState(false);
+
+    //User filled information
+    const [category, setCategory] = useState('');
+    const [title, setTitle] = useState('');
+    const [price, setPrice] = useState(0);
+    const [itemInformation, setItemInformation] = useState('');
+
     const handleSubmit = () => {
         if(category != ''){
             setVisible(!visible)
-            setCategory('')
-            setError(false)
+            clearFormInformation()
         }else{
+            Alert.alert(title + price + itemInformation)
             setError(true)
         }
     }
+    const clearFormInformation = () => {
+        setCategory('')
+        setTitle('')
+        setPrice(0)
+        setItemInformation('')
+        setError(false)
+    }
+
 
     return(
         <ModalPopUp visible={visible}>
@@ -30,8 +44,8 @@ const AddItemPopUp = ({visible, setVisible}) => {
         </View>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Tuotteen perustiedot</Text>
         <View style={styles.modalSection}>
-            <TextInput style={Style.input} placeholder={"Otsikko"}></TextInput>
-            <TextInput style={Style.input} placeholder={"Hinta"}></TextInput>
+            <TextInput style={Style.input} placeholder={"Otsikko"} onChangeText={title => setTitle(title)}></TextInput>
+            <TextInput style={Style.input} placeholder={"Hinta"} onChangeText={price => setPrice(price)}></TextInput>
             <SelectDropdown
                 data={countries}
                 defaultButtonText={"Kategoria"}
@@ -54,7 +68,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
         </View>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Lisätiedot</Text>
         <View style={styles.modalSectionSmall}>
-            <TextInput style={styles.ModalMultiInput} multiline={true} numberOfLines={10} placeholder="Ilmoitusteksti..."> </TextInput>
+            <TextInput style={styles.ModalMultiInput} multiline={true} numberOfLines={10} placeholder="Ilmoitusteksti..." onChangeText={info => setItemInformation(info)}> </TextInput>
         </View>
         {
             error ? 
