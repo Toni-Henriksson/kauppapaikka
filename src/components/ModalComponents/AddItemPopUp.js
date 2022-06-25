@@ -7,10 +7,19 @@ import Style from "../../global/Style";
 const AddItemPopUp = ({visible, setVisible}) => {
     const countries = ["Elektroniikka", "Rakentaminen", "Vaatetus", "Muut"];
     const [category, setCategory] = useState('');
+    const [error, setError] = useState(false);
+    const handleSubmit = () => {
+        if(category != ''){
+            setVisible(!visible)
+            setCategory('')
+            setError(false)
+        }else{
+            setError(true)
+        }
+    }
 
     return(
         <ModalPopUp visible={visible}>
-
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Kuvat</Text>
         <View style={styles.modalSectionSmall}>
             <TouchableOpacity style={styles.picContainer}>
@@ -19,7 +28,6 @@ const AddItemPopUp = ({visible, setVisible}) => {
             <TouchableOpacity style={styles.picContainer}><Text>+</Text></TouchableOpacity>
             <TouchableOpacity style={styles.picContainer}><Text>+</Text></TouchableOpacity>
         </View>
-
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Tuotteen perustiedot</Text>
         <View style={styles.modalSection}>
             <TextInput style={Style.input} placeholder={"Otsikko"}></TextInput>
@@ -44,14 +52,18 @@ const AddItemPopUp = ({visible, setVisible}) => {
                 buttonStyle={{borderWidth: 1, borderRadius: 5, width: "80%", height: 40, alignSelf: 'center', marginTop: 10,}}
             />
         </View>
-
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Lisätiedot</Text>
         <View style={styles.modalSectionSmall}>
             <TextInput style={styles.ModalMultiInput} multiline={true} numberOfLines={10} placeholder="Ilmoitusteksti..."> </TextInput>
         </View>
-        
+        {
+            error ? 
+            <Text style={{color: 'red', fontWeight: 'bold', marginTop: 10}}>Oops... Jokin kenttä jäi täyttämättä lmao</Text>
+            :
+            null
+        }
         <View style={styles.modalControls}>
-            <TouchableOpacity style={styles.modalBtn} onPress={()=>{setVisible(!visible)}}>
+            <TouchableOpacity style={styles.modalBtn} onPress={()=>{handleSubmit()}}>
                  <Text style={{alignSelf: 'center', padding: 5}}>Lähetä</Text> 
             </TouchableOpacity>
         </View>
