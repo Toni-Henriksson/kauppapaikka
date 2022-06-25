@@ -39,7 +39,6 @@ const ModalPopUp = ({visible, children}) => {
       <View style={styles.modalBackground}>
         <Animated.View 
           style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
-          {/*Tää children jostain syyst saa daycomponentissa olevat napit yms näkymään, jos tän poistaa ne ei näy siellä????*/}
           {children}
         </Animated.View>
       </View>

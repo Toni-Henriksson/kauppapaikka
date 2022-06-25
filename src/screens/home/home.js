@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput, Alert } from "react-native"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../../backend/firebase'
@@ -8,14 +8,12 @@ import Style from "../../global/Style"
 import Navbar from "../../components/navbar/navbar"
 import Item from "../../components/item/Item";
 import ModalPopUp from "../../components/modal/Modal";
+import SelectDropdown from 'react-native-select-dropdown'
 
 const HomeScreen = () => {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const [user, setUser] = useState();
-
-    //Modal Pop up window toggle
-    const [visible, setVisible] = useState(false);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -25,47 +23,12 @@ const HomeScreen = () => {
 
         }
     });
-
-    function openModal(){
-        // store index of opened note and then open modal popup.
-        //setTempIndex(index);
-        setVisible(!visible);
-    }
-
     return(
         <View style={styles.container}>
-            <ModalPopUp visible={visible}>
-
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>Kuvat</Text>
-                <View style={styles.modalSection}>
-                    <View style={styles.picContainer}><Text>+</Text></View>
-                    <View style={styles.picContainer}><Text>+</Text></View>
-                    <View style={styles.picContainer}><Text>+</Text></View>
-                </View>
-
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>Otsikko</Text>
-                <View style={styles.modalSection}>
-
-                </View>
-
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>Lisätiedot</Text>
-                <View style={styles.modalSection}>
-                    <TextInput style={styles.ModalMultiInput} multiline={true} numberOfLines={10} placeholder="Ilmoitusteksti...">
-
-                    </TextInput>
-                </View>
-                
-                <View style={styles.modalControls}>
-                    <TouchableOpacity style={styles.modalBtn} onPress={()=>{openModal()}}>
-                         <Text style={{alignSelf: 'center', padding: 5}}>Lähetä</Text> 
-                    </TouchableOpacity>
-                </View>
-            </ModalPopUp>
-            
             <View style={styles.controlsContainer}>
                 <TextInput style={styles.controlInput} placeholder="Hae kauppapaikasta"></TextInput>
                 <View style={styles.controlsButtonsContainer}>
-                    <TouchableOpacity style={styles.controlButton} onPress={()=>{openModal()}}>
+                    <TouchableOpacity style={styles.controlButton}>
                         <Text>Alue</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.controlButton}>
@@ -156,7 +119,14 @@ const styles = StyleSheet.create({
     },
     modalSection:{
         width: '100%',
-        height: '25%',
+        height: '30%',
+        flexDirection: 'column',
+        borderBottomWidth: 1,
+        borderColor: "#C0C0C0",
+    },
+    modalSectionSmall:{
+        width: '100%',
+        height: '20%',
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderColor: "#C0C0C0",

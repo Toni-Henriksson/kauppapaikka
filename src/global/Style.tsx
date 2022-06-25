@@ -12,9 +12,10 @@ export default StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 5,
-    height: 50,
+    height: 40,
     margin: 10,
     padding: 10,
-    width: '80%'
+    width: '80%',
+    alignSelf: 'center',
   }
 });
