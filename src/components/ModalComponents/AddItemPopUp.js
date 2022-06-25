@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput, Alert } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import ModalPopUp from "../../components/modal/Modal";
 import SelectDropdown from "react-native-select-dropdown";
 import Style from "../../global/Style";
