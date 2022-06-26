@@ -1,7 +1,7 @@
 import { Camera } from "expo-camera";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 
-const CameraOverlay = ({setCameraOpen, setPhoto}) => {
+const CameraOverlay = ({setCameraOpen, setPhoto, setPhoto1, setPhoto2, btnId}) => {
     let camera;
 
     async function takePicture(){
@@ -12,8 +12,21 @@ const CameraOverlay = ({setCameraOpen, setPhoto}) => {
                 exif: false
             };
           const data = await camera.takePictureAsync(options);
-          setPhoto(data)
-          Alert.alert(data.uri);
+          
+          // Detect button the camera was triggered from and set photo data to its own place
+          // TODO: Just push the info to an array or something and render from that one array instead of 3 separate useStates
+          if(btnId == 1){
+            setPhoto(data)
+            setCameraOpen(false)
+          }
+          if(btnId == 2){
+            setPhoto1(data)
+            setCameraOpen(false)
+          }
+          if(btnId == 3){
+            setPhoto2(data)
+            setCameraOpen(false)
+          }
         }
       }
 

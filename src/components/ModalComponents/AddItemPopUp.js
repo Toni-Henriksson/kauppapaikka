@@ -7,15 +7,18 @@ import { Camera } from "expo-camera";
 import CameraOverlay from "../camera/CameraOverlay";
 
 const AddItemPopUp = ({visible, setVisible}) => {
+    // MISC 
     const countries = ["Elektroniikka", "Rakentaminen", "Vaatetus", "Muut"];
     const [error, setError] = useState(false);
-    const [cameraOpen, setCameraOpen] = useState(true);
 
-    let cameraRef = useRef();
+    // Camera & Photos
+    const [cameraOpen, setCameraOpen] = useState(false);
     const [hasCameraPermission, setHasCameraPermission] = useState();
+    const [btnId, setBtnId] = useState(0);
     const [photo, setPhoto] = useState();
+    const [photo1, setPhoto1] = useState();
+    const [photo2, setPhoto2] = useState();
 
-    //const [type, setType] = useState(CameraType.back);
     useEffect(() => {
         (async () => {
             const cameraPermission = await Camera.requestCameraPermissionsAsync();
@@ -44,24 +47,32 @@ const AddItemPopUp = ({visible, setVisible}) => {
             setError(true)
         }
     }
+
     const clearFormInformation = () => {
         setCategory('')
         setTitle('')
         setPrice(0)
         setItemInformation('')
+        setPhoto(undefined)
+        setPhoto1(undefined)
+        setPhoto2(undefined)
         setError(false)
     }
 
+    const openCam = (btnId) => {
+        setBtnId(btnId)
+        setCameraOpen(true)
+    }
     return (
         <ModalPopUp visible={visible}>
             {
                 cameraOpen ?
-                    <CameraOverlay cameraOpen={cameraOpen} setCameraOpen={setCameraOpen} setPhoto={setPhoto}></CameraOverlay>
+                    <CameraOverlay cameraOpen={cameraOpen} setCameraOpen={setCameraOpen} setPhoto={setPhoto} setPhoto1={setPhoto1} setPhoto2={setPhoto2} btnId={btnId}></CameraOverlay>
                     :
                     <View style={styles.modalFormContainer}>
                         <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Kuvat</Text>
                         <View style={styles.modalSectionSmall}>
-                            <TouchableOpacity style={styles.picContainer} onPress={()=>{setCameraOpen(true)}}>
+                            <TouchableOpacity style={styles.picContainer} onPress={()=>{openCam('1')}}>
                                 {
                                     photo ? 
                                     <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }}></Image>
@@ -70,8 +81,24 @@ const AddItemPopUp = ({visible, setVisible}) => {
                                 }
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.picContainer} onPress={()=>{setCameraOpen(true)}}><Text>+</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.picContainer} onPress={()=>{setCameraOpen(true)}}><Text>+</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.picContainer} onPress={()=>{openCam('2')}}>
+                                {
+                                    photo1 ? 
+                                    <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo1.base64 }}></Image>
+                                    :
+                                    <Text>+</Text>
+                                }
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.picContainer} onPress={()=>{openCam('3')}}>
+                                {
+                                    photo2 ? 
+                                    <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo2.base64 }}></Image>
+                                    :
+                                    <Text>+</Text>
+                                }
+                            </TouchableOpacity>
+
                         </View>
                         <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Tuotteen perustiedot</Text>
                         <View style={styles.modalSection}>
