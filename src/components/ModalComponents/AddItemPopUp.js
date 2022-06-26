@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image } from "react-native";
 import ModalPopUp from "../../components/modal/Modal";
 import SelectDropdown from "react-native-select-dropdown";
 import Style from "../../global/Style";
@@ -13,6 +13,8 @@ const AddItemPopUp = ({visible, setVisible}) => {
 
     let cameraRef = useRef();
     const [hasCameraPermission, setHasCameraPermission] = useState();
+    const [photo, setPhoto] = useState();
+
     //const [type, setType] = useState(CameraType.back);
     useEffect(() => {
         (async () => {
@@ -54,16 +56,22 @@ const AddItemPopUp = ({visible, setVisible}) => {
         <ModalPopUp visible={visible}>
             {
                 cameraOpen ?
-                    <CameraOverlay cameraOpen={cameraOpen} setCameraOpen={setCameraOpen}></CameraOverlay>
+                    <CameraOverlay cameraOpen={cameraOpen} setCameraOpen={setCameraOpen} setPhoto={setPhoto}></CameraOverlay>
                     :
                     <View style={styles.modalFormContainer}>
                         <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Kuvat</Text>
                         <View style={styles.modalSectionSmall}>
-                            <TouchableOpacity style={styles.picContainer}>
-                                <Text>+</Text>
+                            <TouchableOpacity style={styles.picContainer} onPress={()=>{setCameraOpen(true)}}>
+                                {
+                                    photo ? 
+                                    <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }}></Image>
+                                    :
+                                    <Text>+</Text>
+                                }
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.picContainer}><Text>+</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.picContainer}><Text>+</Text></TouchableOpacity>
+
+                            <TouchableOpacity style={styles.picContainer} onPress={()=>{setCameraOpen(true)}}><Text>+</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.picContainer} onPress={()=>{setCameraOpen(true)}}><Text>+</Text></TouchableOpacity>
                         </View>
                         <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Tuotteen perustiedot</Text>
                         <View style={styles.modalSection}>
@@ -77,13 +85,9 @@ const AddItemPopUp = ({visible, setVisible}) => {
                                     setCategory(selection);
                                 }}
                                 buttonTextAfterSelection={(selectedItem, index) => {
-                                    // text represented after item is selected
-                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
                                     return selectedItem
                                 }}
                                 rowTextForSelection={(item, index) => {
-                                    // text represented for each item in dropdown
-                                    // if data array is an array of objects then return item.property to represent item in dropdown
                                     return item
                                 }}
                                 buttonStyle={{ borderWidth: 1, borderRadius: 5, width: "80%", height: 40, alignSelf: 'center', marginTop: 10, }}
@@ -164,6 +168,10 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
         padding: 10,
     },
+    preview: {
+        alignSelf: 'stretch',
+        flex: 1,
+    }
 })
 
 export default AddItemPopUp

@@ -15,7 +15,7 @@ export default StyleSheet.create({
     height: 40,
     margin: 10,
     padding: 10,
-    width: '80%',
+    width: 300,
     alignSelf: 'center',
   }
 });
