@@ -2,4 +2,4 @@
 
 ###Demo tämänhetkisestä progressista: 
 
-<video src='https://streamable.com/4k2pf7' width=180/>
+[![Demo CountPages alpha](https://streamable.com/4k2pf7)](https://streamable.com/4k2pf7)
