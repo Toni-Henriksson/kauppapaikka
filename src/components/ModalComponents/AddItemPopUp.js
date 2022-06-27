@@ -5,11 +5,9 @@ import SelectDropdown from "react-native-select-dropdown";
 import Style from "../../global/Style";
 import { Camera } from "expo-camera";
 import CameraOverlay from "../camera/CameraOverlay";
-import { getStorage, uploadBytes, ref } from 'firebase/storage';
 import { getAuth } from "firebase/auth";
-
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
+import { UploadImg } from "../../utility/UploadImg";
+import { useFocusEffect } from "@react-navigation/native";
 
 const AddItemPopUp = ({visible, setVisible}) => {
     // MISC 
@@ -23,6 +21,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
     const [photo, setPhoto] = useState();
     const [photo1, setPhoto1] = useState();
     const [photo2, setPhoto2] = useState();
+    const [imgUrls, setImgUrls] = useState();
 
     useEffect(() => {
         (async () => {
@@ -46,6 +45,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
 
     const handleSubmit = () => {
         const uid = getAuth().currentUser.uid;
+        let arr = []
         if(category != ''){
             setVisible(!visible)
             clearFormInformation()
@@ -53,21 +53,19 @@ const AddItemPopUp = ({visible, setVisible}) => {
             setError(true)
         } 
 
-        let photoBundle = [photo, photo1, photo2]
-        // TODO: Check if photodata is valid and we get the uid, then upload. Might cause bugs later if not done.
-        //uploadToFirebase(photo1, uid)
-        uploadToFirebase(photo1, uid)
+        // Need to handle all 3 of these separately, since user can add 1 or 2 or 3 pics in random spots.
+        // Ugly but i think this is decent way so that i dont get million app crashes. 
+        if(photo){
+            UploadImg(photo, uid).then((res) => {arr.push(res)})
+        }
+        if(photo1){
+            UploadImg(photo1, uid).then((res) => {arr.push(res)})
+        }
+        if(photo2){
+            UploadImg(photo2, uid).then((res) => {arr.push(res)})
+        }
+        setImgUrls(arr)
     }
-    
-    const uploadToFirebase = async (images, userID) => {
-        const storage = getStorage();
-        let fileName = "image.jpg"
-        let itemID = uuidv4();
-        const storageRef2 = ref(storage, `${userID}/${itemID}/${fileName}`);
-        const img = await fetch(images.uri);
-        const bytes = await img.blob();
-        await uploadBytes(storageRef2, bytes)  
-    }; 
 
     const clearFormInformation = () => {
         setCategory('')
