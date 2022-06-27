@@ -52,19 +52,22 @@ const AddItemPopUp = ({visible, setVisible}) => {
         }else{
             setError(true)
         } 
-
         // Need to handle all 3 of these separately, since user can add 1 or 2 or 3 pics in random spots.
-        // Ugly but i think this is decent way so that i dont get million app crashes. 
+        // Ugly but i think this is decent way so that i dont get million app crashes.
         if(photo){
-            UploadImg(photo, uid).then((res) => {arr.push(res)})
+            arr.push(photo)
         }
         if(photo1){
-            UploadImg(photo1, uid).then((res) => {arr.push(res)})
+            arr.push(photo1)
         }
         if(photo2){
-            UploadImg(photo2, uid).then((res) => {arr.push(res)})
+            arr.push(photo2)
         }
-        setImgUrls(arr)
+
+        // Finally check if arr has anything and then upload its content
+        if(arr){
+            UploadImg(arr, uid)
+        }
     }
 
     const clearFormInformation = () => {
