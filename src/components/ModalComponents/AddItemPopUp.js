@@ -8,6 +8,8 @@ import CameraOverlay from "../camera/CameraOverlay";
 import { getStorage, uploadBytes, ref } from 'firebase/storage';
 import { getAuth } from "firebase/auth";
 
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 const AddItemPopUp = ({visible, setVisible}) => {
     // MISC 
@@ -56,16 +58,15 @@ const AddItemPopUp = ({visible, setVisible}) => {
         //uploadToFirebase(photo1, uid)
         uploadToFirebase(photo1, uid)
     }
+    
     const uploadToFirebase = async (images, userID) => {
         const storage = getStorage();
-
-        let fileName = "filename3"
-        let itemID = "post2"
-        
+        let fileName = "image.jpg"
+        let itemID = uuidv4();
         const storageRef2 = ref(storage, `${userID}/${itemID}/${fileName}`);
         const img = await fetch(images.uri);
         const bytes = await img.blob();
-        await uploadBytes(storageRef2, bytes)
+        await uploadBytes(storageRef2, bytes)  
     }; 
 
     const clearFormInformation = () => {
