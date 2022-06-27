@@ -1,7 +1,8 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import {getDatabase, set, ref} from 'firebase/database'
+import {getDatabase, set, ref } from 'firebase/database'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from './firebase'
+
 
 // IF ALL THIS IS NOT WORKING BE SURE TO CHECK FIREBASE VERSION
 export const register = async(email, password, fullname) => {
@@ -47,3 +48,4 @@ export const writeToDB = async (userId, email, fullname) => {
         Alert.alert(error.message);
     }
 }; 
+

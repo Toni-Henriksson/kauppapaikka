@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image, Alert } from "react-native";
 import ModalPopUp from "../../components/modal/Modal";
 import SelectDropdown from "react-native-select-dropdown";
 import Style from "../../global/Style";
 import { Camera } from "expo-camera";
 import CameraOverlay from "../camera/CameraOverlay";
+import { getStorage, uploadBytes, ref } from 'firebase/storage';
+import { getAuth } from "firebase/auth";
+
 
 const AddItemPopUp = ({visible, setVisible}) => {
     // MISC 
@@ -40,13 +43,30 @@ const AddItemPopUp = ({visible, setVisible}) => {
     const [itemInformation, setItemInformation] = useState('');
 
     const handleSubmit = () => {
+        const uid = getAuth().currentUser.uid;
         if(category != ''){
             setVisible(!visible)
             clearFormInformation()
         }else{
             setError(true)
-        }
+        } 
+
+        let photoBundle = [photo, photo1, photo2]
+        // TODO: Check if photodata is valid and we get the uid, then upload. Might cause bugs later if not done.
+        //uploadToFirebase(photo1, uid)
+        uploadToFirebase(photo1, uid)
     }
+    const uploadToFirebase = async (images, userID) => {
+        const storage = getStorage();
+
+        let fileName = "filename3"
+        let itemID = "post2"
+        
+        const storageRef2 = ref(storage, `${userID}/${itemID}/${fileName}`);
+        const img = await fetch(images.uri);
+        const bytes = await img.blob();
+        await uploadBytes(storageRef2, bytes)
+    }; 
 
     const clearFormInformation = () => {
         setCategory('')
@@ -132,7 +152,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
                         }
                         <View style={styles.modalControls}>
                             <TouchableOpacity style={styles.modalBtn} onPress={() => { handleSubmit() }}>
-                                <Text style={{ alignSelf: 'center', padding: 5 }}>Lähetä</Text>
+                                <Text style={{ alignSelf: 'center', color: 'white', padding: 6 }}>Lähetä</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -186,7 +206,7 @@ const styles = StyleSheet.create({
         width: '80%',
         height: 35,
         backgroundColor: '#f99f38',
-        borderRadius: 25,
+        borderRadius: 5,
     },  
     ModalMultiInput: {
         backgroundColor: "#F0F0F0",
