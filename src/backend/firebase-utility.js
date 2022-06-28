@@ -32,6 +32,7 @@ export const logout = async () => {
         console.log("Error loggin out: " + error)
     }
 };
+
 // Writes all information from register to database
 export const writeToDB = async (userId, email, fullname) => {
     const db = getDatabase();

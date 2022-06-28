@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image } from "react-native";
 import ModalPopUp from "../../components/modal/Modal";
 import SelectDropdown from "react-native-select-dropdown";
 import Style from "../../global/Style";
@@ -7,7 +7,6 @@ import { Camera } from "expo-camera";
 import CameraOverlay from "../camera/CameraOverlay";
 import { getAuth } from "firebase/auth";
 import { UploadImg } from "../../utility/UploadImg";
-import { useFocusEffect } from "@react-navigation/native";
 
 const AddItemPopUp = ({visible, setVisible}) => {
     // MISC 
@@ -21,7 +20,6 @@ const AddItemPopUp = ({visible, setVisible}) => {
     const [photo, setPhoto] = useState();
     const [photo1, setPhoto1] = useState();
     const [photo2, setPhoto2] = useState();
-    const [imgUrls, setImgUrls] = useState();
 
     useEffect(() => {
         (async () => {
@@ -45,7 +43,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
 
     const handleSubmit = () => {
         const uid = getAuth().currentUser.uid;
-        let arr = []
+        let imgUrlArr = []
         if(category != ''){
             setVisible(!visible)
             clearFormInformation()
@@ -55,18 +53,24 @@ const AddItemPopUp = ({visible, setVisible}) => {
         // Need to handle all 3 of these separately, since user can add 1 or 2 or 3 pics in random spots.
         // Ugly but i think this is decent way so that i dont get million app crashes.
         if(photo){
-            arr.push(photo)
+            imgUrlArr.push(photo)
         }
         if(photo1){
-            arr.push(photo1)
+            imgUrlArr.push(photo1)
         }
         if(photo2){
-            arr.push(photo2)
+            imgUrlArr.push(photo2)
         }
 
         // Finally check if arr has anything and then upload its content
-        if(arr){
-            UploadImg(arr, uid)
+        if(imgUrlArr){
+            let dataBundle = [{
+                title: title,
+                price: price,
+                category: category,
+                additionalInfo: itemInformation
+            }]
+            UploadImg(imgUrlArr, dataBundle,  uid)
         }
     }
 

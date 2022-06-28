@@ -1,14 +1,12 @@
-import { getStorage, uploadBytes, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { Alert } from "react-native";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { GenerateListing } from './GenerateListing';
+
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
-export const UploadImg = async (image, userID) => {
-    //const storage = getStorage();
-    //let fileName = "ListedItemImage-" + uuidv4();
-    //let itemID = uuidv4();
-    //const imageRef = ref(storage, `${userID}/${itemID}/${fileName}`);
-
+export const UploadImg = async (image, dataBundle, userID) => {
+    const tempArr = []
+    console.log(dataBundle)
     for(let i = 0; i < image.length; i++){
         const storage = getStorage();
         let fileName = "ListedItemImage-" + uuidv4();
@@ -20,14 +18,13 @@ export const UploadImg = async (image, userID) => {
         await uploadBytesResumable(imageRef, bytes)
         .then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
-                generateListing(url)
+                tempArr.push(url)
+                if(tempArr.length === image.length){
+                    GenerateListing(tempArr, dataBundle)
+                }
             });
         }).catch((error) => {
-            Alert.alert('Upload failed', error);
+            console.log('Upload failed', error);
         });
     }
-}
-
-const generateListing = (imgUrls) => {
-    console.log(imgUrls)
 }
