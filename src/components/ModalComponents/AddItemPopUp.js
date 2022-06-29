@@ -6,7 +6,7 @@ import Style from "../../global/Style";
 import { Camera } from "expo-camera";
 import CameraOverlay from "../camera/CameraOverlay";
 import { getAuth } from "firebase/auth";
-import { UploadImg } from "../../utility/UploadImg";
+import { UploadData} from "../../utility/UploadImg";
 
 const AddItemPopUp = ({visible, setVisible}) => {
     // MISC 
@@ -70,7 +70,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
                 category: category,
                 additionalInfo: itemInformation
             }]
-            UploadImg(imgUrlArr, dataBundle,  uid)
+            UploadData(imgUrlArr, dataBundle,  uid)
         }
     }
 

@@ -1,26 +1,79 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, Children } from "react"
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput, Alert } from "react-native"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../../backend/firebase'
 import Navbar from "../../components/navbar/navbar"
 import Item from "../../components/item/Item";
+import { getDatabase, ref, get, child, DataSnapshot, getChildren } from "firebase/database";
+import { getMomentsAsync } from "expo-media-library"
 
 const HomeScreen = () => {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const [user, setUser] = useState();
 
+    // Fetched posts from db
+    const [posts, setPosts] = useState([]);
+    // Modified object to suit my needs betteer
+    const [items, setItems] = useState()
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
-          const uid = user.uid;
-          setUser(uid)
+            const uid = user.uid;
+            setUser(uid)
         } else {
 
         }
     });
+    useEffect(() => {
+        getPosts();
+    }, [])
 
-    return(
+    function getPosts() {
+        const db = getDatabase();
+        const dbRef = ref(db);
+        let arr = []
+        get(child(dbRef, "posts/"))
+            .then((snapshot) => {
+                let data;
+                data = snapshot.val()
+                setPosts(data)
+        })
+        if(posts){
+            renderPosts(posts)
+        }    
+    }
+    function renderPosts(data) {
+        // Get post object from db
+        let posts = []
+        Object.keys(data).map(x => {
+            let imageurls = data[x].imageUrls
+            let urls = []
+            let itemData = [data[x].title,
+                        data[x].price, 
+                        data[x].category, 
+                        data[x].additionalInfo]
+            // Get image urls of post object 
+            Object.values(imageurls).map(z => {
+                urls.push(z.key)
+            }) 
+
+            let post = [{
+                title: data[x].title,
+                price: data[x].price,
+                category: data[x].category,
+                additionalInfo: data[x].additionalInfo,
+                img1: urls[0],
+                img2: urls[1],
+                img3: urls[2],
+            }]
+            posts.push(post)
+        })
+        setItems(posts)
+    }
+
+    return (
         <View style={styles.container}>
             <View style={styles.controlsContainer}>
                 <TextInput style={styles.controlInput} placeholder="Hae kauppapaikasta"></TextInput>
@@ -38,10 +91,13 @@ const HomeScreen = () => {
             </View>
             <View style={styles.itemscontainer}>
                 <ScrollView style={styles.scrollContainer}>
-                  <Item/>
-                  <Item/>
-                  <Item/>
-                  <Item/>
+                    {
+                        items.map(function(item, id){
+                            return(
+                                <Item data={item}/>
+                            )
+                        })
+                    }
                 </ScrollView>
             </View>
             <Navbar></Navbar>
