@@ -6,12 +6,12 @@ const Item = ({data}) => {
         <>
         <View style={styles.itemContainer}>
             <View style = {styles.leftContainer}>
-                <Image style={{resizeMode: 'cover', width: "100%", height: "100%"}} source={require('../../images/naytonohjain.jpg')}></Image>
+                <Image style={{resizeMode: 'cover', width: "100%", height: "100%"}} source={{uri: data.img}}></Image>
             </View>
             <View style = {styles.rightContainer}>
-                <Text style={{fontWeight: 'bold'}}>{data[0].title}</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 20}}>{data.title}</Text>
                 <Text>Käytetty</Text>
-                <Text style={{fontWeight: 'bold'}}>{data[0].price}€</Text>
+                <Text style={{fontWeight: 'bold'}}>{data.price}€</Text>
                 <Text>Vantaa | 18 kesäkuuta 11:08</Text>
             </View>
         </View>

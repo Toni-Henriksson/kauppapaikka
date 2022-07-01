@@ -1,22 +1,19 @@
-import React, { useState, useEffect, Children } from "react"
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput, Alert } from "react-native"
+import React, { useState, useEffect } from "react"
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput } from "react-native"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../../backend/firebase'
 import Navbar from "../../components/navbar/navbar"
 import Item from "../../components/item/Item";
-import { getDatabase, ref, get, child, DataSnapshot, getChildren } from "firebase/database";
-import { getMomentsAsync } from "expo-media-library"
+import { getDatabase, ref, onValue } from "firebase/database";
 
 const HomeScreen = () => {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const [user, setUser] = useState();
+    const [user, setUser] = useState('');
 
-    // Fetched posts from db
-    const [posts, setPosts] = useState([]);
-    // Modified object to suit my needs betteer
-    const [items, setItems] = useState()
+    // All items listed for sale
+    const [items, setItems] = useState([]);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -27,50 +24,35 @@ const HomeScreen = () => {
         }
     });
     useEffect(() => {
-        getPosts();
+        const db = getDatabase();
+        if (db) {
+            onValue(ref(db, 'posts/'), snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    render(data)
+                }
+                else {
+                    console.log("No data from DB!")
+                }
+            })
+        }
     }, [])
 
-    function getPosts() {
-        const db = getDatabase();
-        const dbRef = ref(db);
+    const render = (data) => {
         let arr = []
-        get(child(dbRef, "posts/"))
-            .then((snapshot) => {
-                let data;
-                data = snapshot.val()
-                setPosts(data)
-        })
-        if(posts){
-            renderPosts(posts)
-        }    
-    }
-    function renderPosts(data) {
-        // Get post object from db
-        let posts = []
-        Object.keys(data).map(x => {
-            let imageurls = data[x].imageUrls
-            let urls = []
-            let itemData = [data[x].title,
-                        data[x].price, 
-                        data[x].category, 
-                        data[x].additionalInfo]
-            // Get image urls of post object 
-            Object.values(imageurls).map(z => {
-                urls.push(z.key)
-            }) 
-
-            let post = [{
+        Object.keys(data).forEach(x => {
+            let post = {
                 title: data[x].title,
                 price: data[x].price,
                 category: data[x].category,
                 additionalInfo: data[x].additionalInfo,
-                img1: urls[0],
-                img2: urls[1],
-                img3: urls[2],
-            }]
-            posts.push(post)
-        })
-        setItems(posts)
+                img: data[x]?.urls?.arr?.[0],
+                img2: data[x]?.urls?.arr?.[1],
+                img3: data[x]?.urls?.arr?.[2],
+            };
+            arr.push(post) 
+        }) 
+        setItems(arr)
     }
 
     return (
@@ -92,9 +74,11 @@ const HomeScreen = () => {
             <View style={styles.itemscontainer}>
                 <ScrollView style={styles.scrollContainer}>
                     {
-                        items.map(function(item, id){
-                            return(
-                                <Item data={item}/>
+                        items.map(function (item, id) {
+                            return (
+                                <View key={id}>
+                                    <Item data={item} />
+                                </View>
                             )
                         })
                     }
@@ -104,6 +88,7 @@ const HomeScreen = () => {
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

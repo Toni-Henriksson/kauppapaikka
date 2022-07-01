@@ -6,7 +6,7 @@ import Style from "../../global/Style";
 import { Camera } from "expo-camera";
 import CameraOverlay from "../camera/CameraOverlay";
 import { getAuth } from "firebase/auth";
-import { UploadData} from "../../utility/UploadImg";
+import { UploadData} from "../../utility/UploadData";
 
 const AddItemPopUp = ({visible, setVisible}) => {
     // MISC 
@@ -60,7 +60,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
         }
         if(photo2){
             imgUrlArr.push(photo2)
-        }
+        } 
 
         // Finally check if arr has anything and then upload its content
         if(imgUrlArr){
@@ -71,7 +71,7 @@ const AddItemPopUp = ({visible, setVisible}) => {
                 additionalInfo: itemInformation
             }]
             UploadData(imgUrlArr, dataBundle,  uid)
-        }
+        } 
     }
 
     const clearFormInformation = () => {
@@ -79,9 +79,9 @@ const AddItemPopUp = ({visible, setVisible}) => {
         setTitle('')
         setPrice(0)
         setItemInformation('')
-        setPhoto(undefined)
-        setPhoto1(undefined)
-        setPhoto2(undefined)
+        setPhoto('')
+        setPhoto1('')
+        setPhoto2('')
         setError(false)
     }
 
