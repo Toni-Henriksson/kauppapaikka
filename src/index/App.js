@@ -10,6 +10,8 @@ import HomeScreen from '../screens/home/home';
 import LoginScreen from '../screens/login/Login'
 import RegisterScreen from '../screens/register/Register';
 import SelectedRegister from '../screens/register/SelectedRegister';
+import Profile from '../screens/profile/Profile';
+
 import { useState } from 'react';
 
 export default function App() {
@@ -38,6 +40,7 @@ export default function App() {
           (
             <>
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Profile" component={Profile} />
             </>
           )
 
