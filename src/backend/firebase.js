@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyBPgdQRhBA_sGue3DUAgW2dlx9le9KFcIQ",
+  apiKey: "Nej",
   authDomain: "kauppapaikka-35ca2.firebaseapp.com",
   databaseURL: "https://kauppapaikka-35ca2-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "kauppapaikka-35ca2",
